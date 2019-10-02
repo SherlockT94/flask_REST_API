@@ -1,9 +1,12 @@
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
-# stores must be a dictionary to be converted to a JSON string
-# JSON is used to transmit data over internet via a perfect defined format
-# Always using "" instead of ''
+"""
+1. stores must be a dictionary to be converted to a JSON string.
+2. JSON is used to transmit data over internet via a perfect defined format.
+3. Always using "" instead of ''.
+4. Hard code will be reload when you restart the server, and all of append data will be lost, so we need to persist data using database.
+"""
 stores = [{
     "name": "My Wonderful Store",
     "items": [{
@@ -51,7 +54,7 @@ def get_stores():
 def create_item_in_store(name):
     request_data = request.get_json()
     for store in stores:
-        if store[name] == name:
+        if store["name"] == name:
             new_item = {
                 "name": request_data["name"],
                 "price": request_data["price"]
